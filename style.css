@@ -1,0 +1,48 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.header {
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.commentsSection {
+  text-align: center;
+  border: 1px solid black;
+  align-items: center;
+  grid-column: span 4;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.name,
+.email,
+.body,
+.action {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.name {
+  grid-column: 1;
+}
+.email {
+  grid-column: 2;
+}
+.body {
+  grid-column: 3;
+}
+
