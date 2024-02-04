@@ -1,3 +1,4 @@
+const inappropriateWord = 'alias';
 
 async function showComments() {
   const response = await fetch("https://jsonplaceholder.typicode.com/comments");
@@ -7,6 +8,7 @@ async function showComments() {
   comments.forEach(comment => {
     const commentElement = generateElements(comment);
     app.appendChild(commentElement);
+    checkForInappropriate (commentElement, comment.name, comment.body);
   });
 
   console.log(comments);
@@ -41,10 +43,42 @@ function generateElements(arrayApi) {
 
   deleteButton.addEventListener('click', () => {
     commentsSection.remove();
+    console.log(arrayApi.body);
   })
   action.appendChild(deleteButton);
 
+
+  //tu zaczalem
+  commentsSection.addEventListener('click', () => {
+    commentsSection.classList.toggle('selected');
+    commentsSection.classList.remove('showChecked');
+  })
+  
+  const deleteSelectedCommentsButton = document.querySelector('#deleteSelectedCommentsButton');
+  
+  deleteSelectedCommentsButton.addEventListener('click', () => {
+    if(commentsSection.classList.contains('selected')) {
+      commentsSection.remove();
+      console.log(arrayApi.body);
+    }
+  })
+  
+
+
+//tu koniec
   return commentsSection;
+}
+
+function checkForInappropriate (element, name, body) {
+  const checkbox = document.querySelector('#checkbox');
+  
+  checkbox.addEventListener('change', () => {
+    const containsInappropriateWord = name.includes(inappropriateWord) || body.includes(inappropriateWord);
+    if(checkbox.checked && containsInappropriateWord) {
+      element.classList.add('showChecked');
+    } else element.classList.remove('showChecked');
+  })
+ 
 }
 
 showComments();
