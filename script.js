@@ -1,17 +1,30 @@
 const inappropriateWord = 'alias';
+let currentPage = 1;
+const commentsPerPage = 20;
+let comments;
 
 async function showComments() {
   const response = await fetch("https://jsonplaceholder.typicode.com/comments");
-  const comments = await response.json();
+  comments = await response.json();
   const app = document.querySelector(".app");
 
-  comments.forEach(comment => {
+  const startIndex = (currentPage - 1) * commentsPerPage;
+  const endIndex = startIndex + commentsPerPage;
+  const limitedComments = comments.slice(startIndex, endIndex);
+
+  const existingHeaders = document.querySelector('.headersBar');
+  app.innerHTML = '';
+  app.appendChild(existingHeaders);
+
+  limitedComments.forEach(comment => {
+    comment.innerHTML = '';
     const commentElement = generateElements(comment);
     app.appendChild(commentElement);
     checkForInappropriate (commentElement, comment.name, comment.body);
+    
   });
 
-  console.log(comments);
+  
 }
 
 function generateElements(arrayApi) {
@@ -48,7 +61,7 @@ function generateElements(arrayApi) {
   action.appendChild(deleteButton);
 
 
-  //tu zaczalem
+  //selecting comments and deleting selected with a button
   commentsSection.addEventListener('click', () => {
     commentsSection.classList.toggle('selected');
     commentsSection.classList.remove('showChecked');
@@ -65,7 +78,7 @@ function generateElements(arrayApi) {
   
 
 
-//tu koniec
+
   return commentsSection;
 }
 
@@ -80,5 +93,23 @@ function checkForInappropriate (element, name, body) {
   })
  
 }
+const leftarrow = document.querySelector('#leftarrow');
+const rightarrow = document.querySelector('#rightarrow');
+
+leftarrow.addEventListener('click', () => {
+  if(currentPage > 1) {
+    showComments();
+    currentPage--;
+  }
+});
+
+rightarrow.addEventListener('click', () => {
+  const maxPage = Math.ceil(comments.length / commentsPerPage); 
+  if (currentPage < maxPage) {
+    showComments();
+    currentPage++;
+  }
+  
+})
 
 showComments();
