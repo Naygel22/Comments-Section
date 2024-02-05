@@ -31,21 +31,35 @@ async function filterCommentsByTitles() {
   createSelectWithTitles(posts);
 }
 
-function createSelectWithTitles(arrayApi) {
+function createSelectWithTitles(arrayApiWithTitles) {
   const selectTitle = document.querySelector('#selectTitle');
-  arrayApi.forEach(element => {
+  arrayApiWithTitles.forEach(element => {
     const optionTitle = document.createElement('option');
-    optionTitle.value = element.title;
+    optionTitle.value = element.id;
     optionTitle.textContent = element.title;
     selectTitle.appendChild(optionTitle);
   });
 
   selectTitle.addEventListener('change', () => {
-    
+    const selectedId = parseInt(selectTitle.value); // Pobrane id zamienione na liczbę
+    const filteredComments = comments.filter(comment => comment.postId === selectedId);
+    console.log(filteredComments);
+    showFilteredComments(filteredComments);
   })
 }
 
+function showFilteredComments(filteredComments) {
+  const app = document.querySelector(".app");
+  const existingHeaders = document.querySelector('.headersBar');
+  app.innerHTML = '';
+  app.appendChild(existingHeaders);
 
+  filteredComments.forEach(comment => {
+    const commentElement = generateElements(comment);
+    app.appendChild(commentElement);
+    checkForInappropriate(commentElement, comment.name, comment.body);
+  });
+}
 
 
 
