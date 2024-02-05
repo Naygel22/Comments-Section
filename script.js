@@ -23,9 +23,31 @@ async function showComments() {
     checkForInappropriate (commentElement, comment.name, comment.body);
     
   });
-
-  
 }
+
+async function filterCommentsByTitles() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await response.json();
+  createSelectWithTitles(posts);
+}
+
+function createSelectWithTitles(arrayApi) {
+  const selectTitle = document.querySelector('#selectTitle');
+  arrayApi.forEach(element => {
+    const optionTitle = document.createElement('option');
+    optionTitle.value = element.title;
+    optionTitle.textContent = element.title;
+    selectTitle.appendChild(optionTitle);
+  });
+
+  selectTitle.addEventListener('change', () => {
+    
+  })
+}
+
+
+
+
 
 function generateElements(arrayApi) {
   const commentsSection = document.createElement('div');
@@ -113,3 +135,4 @@ rightarrow.addEventListener('click', () => {
 })
 
 showComments();
+filterCommentsByTitles();

@@ -99,7 +99,7 @@ body {
 #deleteSelectedCommentsButton {
   width: 200px;
   height: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   cursor: pointer;
 }
 
@@ -139,4 +139,13 @@ body {
   letter-spacing: 1px;
   font-size: 12px;
   cursor: pointer;
+}
+
+.selectSection{
+  margin-top: 25px;
+}
+#selectTitle{
+  height: 35px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
