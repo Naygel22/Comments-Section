@@ -150,21 +150,23 @@ rightarrow.addEventListener('click', () => {
   }
   
 })
+const findWordsInput = document.querySelector('#findWordsInput');
 
-function findWords(name, email, body) {
-  const findWordsInput = document.querySelector('#findWordsInput');
-  findWordsInput.addEventListener('input', ()=> {
+function findWords() {
+  const app = document.querySelector(".app");
+  const existingHeaders = document.querySelector('.headersBar');
+  app.innerHTML = '';
+  app.appendChild(existingHeaders);
+
   const wordToFind = findWordsInput.value;
-  const containsWordToFind = name.includes(wordToFind) || email.includes(wordToFind) || body.includes(wordToFind);
-  if(containsWordToFind) {
-    const filteredComments = comments.filter(comment => comment.name.includes(wordToFind));
-      showFilteredComments(filteredComments);
-  }
-})
+  const filteredComments = comments.filter(comment =>
+    comment.name.includes(wordToFind) || comment.email.includes(wordToFind) || comment.body.includes(wordToFind)
+  );
+
+  showFilteredComments(filteredComments);
 }
 
-
-
+findWordsInput.addEventListener('input', findWords);
 
 showComments();
 filterCommentsByTitles();
