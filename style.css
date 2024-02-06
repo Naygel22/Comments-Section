@@ -147,5 +147,10 @@ body {
 #selectTitle{
   height: 35px;
   margin-top: 7px;
-  margin-bottom: 7px;
+  margin-bottom: 30px;
+}
+#findWordsInput{
+  margin-top: 7px;
+  height: 35px;
+  padding-left: 10px;
 }

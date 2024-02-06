@@ -41,11 +41,14 @@ function createSelectWithTitles(arrayApiWithTitles) {
   });
 
   selectTitle.addEventListener('change', () => {
-    const selectedId = parseInt(selectTitle.value); // Pobrane id zamienione na liczbę
-    const filteredComments = comments.filter(comment => comment.postId === selectedId);
-    console.log(filteredComments);
-    showFilteredComments(filteredComments);
-  })
+    const selectedId = parseInt(selectTitle.value);
+    if (selectedId === -1) {
+      showComments();
+    } else {
+      const filteredComments = comments.filter(comment => comment.postId === selectedId);
+      showFilteredComments(filteredComments);
+    }
+  });
 }
 
 function showFilteredComments(filteredComments) {
@@ -147,6 +150,21 @@ rightarrow.addEventListener('click', () => {
   }
   
 })
+
+function findWords(name, email, body) {
+  const findWordsInput = document.querySelector('#findWordsInput');
+  findWordsInput.addEventListener('input', ()=> {
+  const wordToFind = findWordsInput.value;
+  const containsWordToFind = name.includes(wordToFind) || email.includes(wordToFind) || body.includes(wordToFind);
+  if(containsWordToFind) {
+    const filteredComments = comments.filter(comment => comment.name.includes(wordToFind));
+      showFilteredComments(filteredComments);
+  }
+})
+}
+
+
+
 
 showComments();
 filterCommentsByTitles();
