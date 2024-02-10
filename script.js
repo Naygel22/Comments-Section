@@ -5,13 +5,13 @@
   let comments;
   let checkedComments = [];
 
-  await getComments();
-
   async function getComments() {
     const response = await fetch("https://jsonplaceholder.typicode.com/comments");
     comments = await response.json();
   }
   console.log(comments);
+
+  await getComments();
 
   async function showComments() {
 
