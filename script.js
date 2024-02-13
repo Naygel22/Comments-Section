@@ -146,21 +146,21 @@
     showComments();
   }
 
+  checkbox.addEventListener('change', () => {
+    showComments();
+  })
 
 
   function checkForInappropriate(element, name, body, id) {
     const checkbox = document.querySelector('#checkbox');
-
-    checkbox.addEventListener('change', () => {
       const containsInappropriateWord = name.includes(inappropriateWord) || body.includes(inappropriateWord);
       if (checkbox.checked && containsInappropriateWord) {
         element.classList.add('showChecked');
         checkedComments.push(id);
         console.log(checkedComments);
       } else element.classList.remove('showChecked');
-    })
-
   }
+
   const leftarrow = document.querySelector('#leftarrow');
   const rightarrow = document.querySelector('#rightarrow');
 
